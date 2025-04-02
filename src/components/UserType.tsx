@@ -1,26 +1,40 @@
 import Caret from "./Caret";
 
 const UserTypings = ({
-    userInput,
-    className,
+  userInput,
+  className,
+  words,
 }: {
-    userInput: string;
-    className?: string;
+  userInput: string;
+  className?: string;
+  words: string;
 }) => {
-    const typedCharacters = userInput.split("");
-
-    return (
-        <div className={className}>
-            {typedCharacters.map((char, index) => {
-                return <Character key={`${char}_${index}`} char={char} />;
-            })}
-            <Caret/>
-        </div>
-    );
-};
-
-const Character = ({ char }: { char: string }) => {
-    return <span className="text-primary-400">{char}</span>;
+  const typedCharacters = userInput.split("");
+  
+  return (
+    <div
+      className={`${className} font-mono`}
+      style={{
+        whiteSpace: "pre-wrap",
+        fontSize: "2rem",
+        lineHeight: "1.5",
+        letterSpacing: "0.05em",
+      }}
+    >
+      {typedCharacters.map((char, index) => {
+        const isCorrect = words[index] === char;
+        return (
+          <span
+            key={`${char}_${index}`}
+            className={isCorrect ? "text-yellow-400" : "text-red-500"}
+          >
+            {char}
+          </span>
+        );
+      })}
+      <Caret />
+    </div>
+  );
 };
 
 export default UserTypings;

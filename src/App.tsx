@@ -1,59 +1,72 @@
-import {faker} from '@faker-js/faker'
-import RestartButton from './components/RestartButton.tsx'
-import Results from './components/Results.tsx'
-import UserTypings from './components/UserType.tsx'
-import useEngine from './hooks/useEngine.ts'
-const words = faker.lorem.words(30)
+import { calculateAccuracyPercentage } from './utils/helpers';
+import RestartButton from './components/RestartButton';
+import Results from './components/Results';
+import UserTypings from './components/UserType';
+import useEngine from './hooks/useEngine';
 
 function App() {
-  const {state,words} = useEngine()
+  const { state, words, errors, timeLeft, totalTyped, typed, restart } = useEngine();
+
   return (
     <>
-    <CountDownTimer timeleft={30}/>
-    <WordContainer>
+      <CountdownTimer timeLeft={timeLeft} />
 
-    </WordContainer>
-    <div className='relative max-w-xl mt-3 leading-relaxed break-all'>
-    <GeneratedWords words={words}/>
-    <UserTypings className='absolute inset-0' userInput={words}></UserTypings>
-    </div>
-     
-     <RestartButton
-      className= {"mx-auto mt-10 text-slate-500"}
-     /> 
-     
-     <Results  className={"mx-auto mt-10 text-slate-500"}
-      errors={0}
-      accuracyPercentage={100}
-      total={30}>
-     </Results>
+      <WordContainer>
+        <div className="relative">
+          <GeneratedWords words={words} />
+          <UserTypings 
+            className="absolute inset-0" 
+            userInput={typed} 
+            words={words} 
+          />
+        </div>
+      </WordContainer>
 
-     
-    </> 
-  )
+      <RestartButton
+        className="mx-auto mt-10 text-slate-500"
+        onRestart={restart}
+      />
+
+      {state === "finish" && (
+        <Results
+          className="mx-auto mt-10 text-slate-500"
+          errors={errors}
+          accuracyPercentage={calculateAccuracyPercentage(errors, totalTyped)}
+          total={totalTyped}
+        />
+      )}
+    </>
+  );
 }
 
-const WordContainer = ({children}:{children:React.ReactNode}) => {
-  return(
-    <div className="frelaive text-3xl max-w-xl leading-relaxed break-all">
+const WordContainer = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="relative text-3xl max-w-xl mx-auto leading-relaxed break-all">
       {children}
     </div>
-  )
-}
+  );
+};
 
-const GeneratedWords = ({words}: { words: string[] }) => {
-  
-  return(
-    <>
-    <div className="text-4xl text-center text-slate-500">{words}</div>
-    </>
-  )
-}
+const GeneratedWords = ({ words }: { words: string }) => {
+  return (
+    <div
+      className="text-4xl text-slate-500 font-mono"
+      style={{
+        whiteSpace: "pre-wrap",
+        fontSize: "2rem",
+        lineHeight: "1.5",
+        letterSpacing: "0.05em",
+      }}
+    >
+      {words}
+    </div>
+  );
+};
 
-const CountDownTimer = ({timeleft}:{timeleft:number})=>{
-  return(
-    <h2 className='text-primary-400 font-medium '>Time: {timeleft}</h2>
-  )
-}
+const CountdownTimer = ({ timeLeft }: { timeLeft: number }) => {
+  return (
+    <h2 className="text-primary-400 font-medium">Time: {timeLeft}</h2>
+  );
+};
 
-export default App
+export default App;
