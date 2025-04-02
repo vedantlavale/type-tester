@@ -2,9 +2,11 @@ import {faker} from '@faker-js/faker'
 import RestartButton from './components/RestartButton.tsx'
 import Results from './components/Results.tsx'
 import UserTypings from './components/UserType.tsx'
+import useEngine from './hooks/useEngine.ts'
 const words = faker.lorem.words(30)
 
 function App() {
+  const {state,words} = useEngine()
   return (
     <>
     <CountDownTimer timeleft={30}/>
