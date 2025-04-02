@@ -1,5 +1,6 @@
 import {faker} from '@faker-js/faker'
 import RestartButton from './components/RestartButton.tsx'
+import Results from './components/Results.tsx'
 const words = faker.lorem.words(30)
 
 function App() {
@@ -10,6 +11,12 @@ function App() {
      <RestartButton
       className= {"mx-auto mt-10 text-slate-500"}
      /> 
+     <Results  className={"mx-auto mt-10 text-slate-500"}
+      errors={0}
+      accuracyPercentage={100}
+      total={30}>
+     
+     </Results>
     </>
   )
 }
