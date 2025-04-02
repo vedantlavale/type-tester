@@ -1,12 +1,19 @@
 import {faker} from '@faker-js/faker'
-
-function App() {
-
 const words = faker.lorem.words(30)
 
+function App() {
   return (
     <>
-     <h1 className="text-primary-500">{words}</h1>
+     <GeneratedWords words={words}/>
+    </>
+  )
+}
+
+const GeneratedWords = ({words}: { words: string[] }) => {
+  
+  return(
+    <>
+    <div className="text-4xl text-center text-slate-500">{words}</div>
     </>
   )
 }
