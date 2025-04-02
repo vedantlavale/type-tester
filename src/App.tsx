@@ -1,4 +1,5 @@
 import {faker} from '@faker-js/faker'
+import RestartButton from './components/RestartButton.tsx'
 const words = faker.lorem.words(30)
 
 function App() {
@@ -6,6 +7,9 @@ function App() {
     <>
      <GeneratedWords words={words}/>
      <CountDownTimer timeleft={30}/>
+     <RestartButton
+      className= {"mx-auto mt-10 text-slate-500"}
+     /> 
     </>
   )
 }
