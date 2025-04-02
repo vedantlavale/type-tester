@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { countErrors, debug } from "../utils/helpers";
-import useCountdown from "./useCountdown";
-import useTypings from "./useTypings";
+import useCountdown from "./useCountDownTimer";
+import useTypings from "./useTyping";
 import useWords from "./useWords";
 
 export type State = "start" | "run" | "finish";
