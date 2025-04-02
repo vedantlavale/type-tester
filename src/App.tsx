@@ -15,7 +15,6 @@ function App() {
       errors={0}
       accuracyPercentage={100}
       total={30}>
-     
      </Results>
     </>
   )
