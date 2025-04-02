@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { formatPercentage } from "../utils/helpers";
 
 const Results = ({
     errors,
@@ -35,7 +36,7 @@ const Results = ({
                 animate={{ x: 0 }}
                 transition={{ ...transition, delay: 0.2 }}
             >
-                Accuracy: {accuracyPercentage}%
+                Accuracy: {formatPercentage(accuracyPercentage)}
             </motion.li>
             <motion.li 
                 className="text-red-500"

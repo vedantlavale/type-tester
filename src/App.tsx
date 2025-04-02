@@ -1,22 +1,41 @@
 import {faker} from '@faker-js/faker'
 import RestartButton from './components/RestartButton.tsx'
 import Results from './components/Results.tsx'
+import UserTypings from './components/UserType.tsx'
 const words = faker.lorem.words(30)
 
 function App() {
   return (
     <>
-     <GeneratedWords words={words}/>
-     <CountDownTimer timeleft={30}/>
+    <CountDownTimer timeleft={30}/>
+    <WordContainer>
+
+    </WordContainer>
+    <div className='relative max-w-xl mt-3 leading-relaxed break-all'>
+    <GeneratedWords words={words}/>
+    <UserTypings className='absolute inset-0' userInput={words}></UserTypings>
+    </div>
+     
      <RestartButton
       className= {"mx-auto mt-10 text-slate-500"}
      /> 
+     
      <Results  className={"mx-auto mt-10 text-slate-500"}
       errors={0}
       accuracyPercentage={100}
       total={30}>
      </Results>
-    </>
+
+     
+    </> 
+  )
+}
+
+const WordContainer = ({children}:{children:React.ReactNode}) => {
+  return(
+    <div className="frelaive text-3xl max-w-xl leading-relaxed break-all">
+      {children}
+    </div>
   )
 }
 
